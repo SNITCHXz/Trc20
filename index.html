@@ -2,35 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TRC20 USDT Payment</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="TRC20 Pay" class="logo" />
-    <h1>Pay with TRC20 (USDT)</h1>
-    <p>Connect your wallet to send USDT</p>
-    <button onclick="connectWallet()">🔗 Connect Wallet</button>
-    <div id="result" class="result"></div>
-    <footer>Secured Payment Gateway – TRC20 Network</footer>
+    <img src="https://i.ibb.co/ZGV2gZT/logo.png" alt="TRC20 Logo" class="logo" />
+    <h1>TRC20 Payment Gateway</h1>
+    <p>Pay securely using Trust Wallet</p>
+    <a href="https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs" class="btn">Pay Now</a>
+    <p class="wallet-info">Wallet: <span class="blurred">TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs</span></p>
   </div>
-
-  <script>
-    const payToAddress = "TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs";
-
-    async function connectWallet() {
-      if (window.tronWeb && window.tronWeb.ready) {
-        const address = window.tronWeb.defaultAddress.base58;
-        document.getElementById("result").innerHTML = `
-          <p><strong>Wallet Connected:</strong><br/>${address}</p>
-          <p><strong>Send USDT (TRC20) to:</strong><br/><code>${payToAddress}</code></p>
-          <a href="https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=${payToAddress}" class="pay-btn" target="_blank">🚀 Pay Now via Trust Wallet</a>
-        `;
-      } else {
-        alert("❌ Please open this site inside Trust Wallet or TronLink DApp browser.");
-      }
-    }
-  </script>
 </body>
 </html>
