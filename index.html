@@ -4,78 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TRC20 Payment Gateway</title>
-  <link rel="icon" type="image/png" href="logo.png"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #000000, #1e1e1e);
-      color: #fff;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .container {
-      max-width: 400px;
-      margin: auto;
-      background: #111;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px #00ffcc55;
-    }
-
-    img.logo {
-      width: 80px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 15px;
-      color: #aaa;
-    }
-
-    a.pay-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 14px 24px;
-      background: #00ffcc;
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    a.pay-btn:hover {
-      background: #00c2a2;
-    }
-
-    .footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #666;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <img src="logo.png" alt="TRC20 Logo" class="logo" />
-    <h1>TRC20 USDT Payment</h1>
-    <p>Pay securely via Trust Wallet</p>
+    <h1>TRC20 Payment Gateway</h1>
+    <p>Pay securely using Trust Wallet or TronLink</p>
 
-    <!-- Hidden Wallet Address used via link only -->
-    <a class="pay-btn" href="https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs" target="_blank">
-      Pay with Trust Wallet
-    </a>
+    <button id="connectWallet">🔗 Connect Wallet</button>
 
-    <div class="footer">
-      Powered by TRC20 Gateway
-    </div>
+    <form id="paymentForm">
+      <input type="text" value="1" id="amount" readonly />
+      <button type="submit" id="payNow">💸 Pay 1 USDT</button>
+    </form>
+
+    <p id="status"></p>
   </div>
+
+  <script>
+    const walletAddress = atob("VEpzM3JzcGlDa25OY0s4Z25kdHhIcXpHTlpDdmRXUUxycw=="); // Hidden address (Base64)
+
+    document.getElementById("connectWallet").addEventListener("click", () => {
+      if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+        document.getElementById("status").innerText = "✅ Wallet connected: " + window.tronWeb.defaultAddress.base58;
+      } else {
+        document.getElementById("status").innerText = "❌ Please open in TronLink or Trust Wallet DApp browser.";
+      }
+    });
+
+    document.getElementById("paymentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
+        const amount = 1 * 1000000;
+        try {
+          await window.tronWeb.trx.sendToken(walletAddress, amount, "1002000");
+          document.getElementById("status").innerText = "✅ Payment Sent Successfully!";
+        } catch (err) {
+          document.getElementById("status").innerText = "❌ Payment Failed: " + err.message;
+        }
+      } else {
+        document.getElementById("status").innerText = "❌ Wallet not connected.";
+      }
+    });
+  </script>
 </body>
 </html>
