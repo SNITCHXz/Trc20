@@ -4,73 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TRC20 Payment Gateway</title>
+  <link rel="icon" type="image/png" href="logo.png"/>
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background: linear-gradient(to bottom right, #000000, #1e1e1e);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.05);
+      max-width: 400px;
+      margin: auto;
+      background: #111;
       padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 0 20px #00ffcc55;
     }
 
     img.logo {
-      width: 100px;
-      height: auto;
+      width: 80px;
       margin-bottom: 20px;
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 24px;
       margin-bottom: 10px;
     }
 
     p {
-      font-size: 16px;
-      margin-bottom: 20px;
+      font-size: 15px;
+      color: #aaa;
     }
 
-    a.button {
+    a.pay-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 24px;
       background: #00ffcc;
       color: #000;
       text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 8px;
       font-weight: bold;
-      transition: 0.3s ease;
+      border-radius: 8px;
+      transition: 0.3s;
     }
 
-    a.button:hover {
-      background: #00e6b3;
+    a.pay-btn:hover {
+      background: #00c2a2;
     }
 
-    .wallet {
-      margin-top: 15px;
-      font-size: 14px;
-      word-break: break-all;
-      opacity: 0.8;
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #666;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <img src="logo.png" alt="TRC20 Logo" class="logo" />
-    <h1>TRC20 Payment Gateway</h1>
-    <p>Pay securely using Trust Wallet</p>
-    <a class="button" href="https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs" target="_blank">Pay Now</a>
-    <div class="wallet">Wallet Address:<br>TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs</div>
+    <h1>TRC20 USDT Payment</h1>
+    <p>Pay securely via Trust Wallet</p>
+
+    <!-- Hidden Wallet Address used via link only -->
+    <a class="pay-btn" href="https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs" target="_blank">
+      Pay with Trust Wallet
+    </a>
+
+    <div class="footer">
+      Powered by TRC20 Gateway
+    </div>
   </div>
 </body>
 </html>
