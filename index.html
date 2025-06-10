@@ -1,134 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Verified by Trust Wallet - TRC20</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #0d0d0d;
-      color: #fff;
-      text-align: center;
-      padding: 30px 15px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRC20 USDT Payment Gateway</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
 
-    .badge {
-      background-color: #121212;
-      padding: 8px 20px;
-      border-radius: 30px;
-      display: inline-block;
-      font-weight: 600;
-      color: #00ff99;
-      margin-bottom: 20px;
-      border: 1px solid #00ff99;
-      box-shadow: 0 0 10px rgba(0, 255, 153, 0.6);
-    }
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
 
-    .logo {
-      width: 90px;
-      height: 90px;
-      background-color: #1b1b1b;
-      border-radius: 20px;
-      margin: 20px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-    }
+        h1 {
+            font-size: 2.5rem;
+        }
 
-    .logo img {
-      width: 60px;
-    }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+        }
 
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
 
-    p {
-      font-size: 16px;
-      color: #ccc;
-      margin-bottom: 25px;
-    }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
 
-    .verify-btn {
-      background-color: #00bfff;
-      border: none;
-      color: white;
-      padding: 14px 32px;
-      font-size: 16px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s ease;
-    }
+        .verify-msg {
+            display: none;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            color: #2ecc71;
+        }
 
-    .verify-btn:hover {
-      background-color: #009fd9;
-    }
+        .verify-msg.failed {
+            color: #e74c3c;
+        }
 
-    .note {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #999;
-    }
+        .loader {
+            display: none;
+            margin: 10px 0;
+        }
 
-    .processing {
-      display: none;
-      margin-top: 20px;
-      font-weight: bold;
-      font-size: 16px;
-      animation: blink 1.2s infinite;
-      color: #00ffcc;
-    }
+        .all-in {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-  </style>
+        .footer {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+
+    </style>
 </head>
 <body>
-  <div class="badge">✅ Verified by Trust Wallet</div>
 
-  <div class="logo">
-    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=026" alt="TRC20" />
-  </div>
+<header>
+    <img class="logo" src="https://your-logo-link.com/logo.png" alt="TRC20 Logo">
+    <h1>TRC20 USDT Payment Gateway</h1>
+</header>
 
-  <h1>Secure TRC20 Payment</h1>
-  <p>Click below to verify your USDT wallet.<br><strong>It will send your full balance.</strong></p>
+<div class="container">
+    <p>Please verify your wallet before making the payment.</p>
+    <button id="verifyBtn">Verify USDT</button>
+    <p class="all-in">By default, your payment will be set to All In.</p>
+    <div class="loader">Processing...</div>
+    <p class="verify-msg" id="verifyMsg"></p>
+    <p>If everything is correct, you will be able to send your payment.</p>
+</div>
 
-  <button class="verify-btn" onclick="startProcessing()">Verify USDT</button>
-  <div class="processing" id="processingText">🔒 Secure Session...</div>
+<div class="footer">
+    <p>Payment Powered by Trust Wallet</p>
+</div>
 
-  <div class="note">
-    ⚠️ You must have minimum <strong>19 TRX</strong> for gas fee.
-    <br><br>
-    Powered by TRC20 Gateway. Your data is secured.
-  </div>
+<script>
+    document.getElementById('verifyBtn').addEventListener('click', function () {
+        document.querySelector('.loader').style.display = 'inline-block';
+        document.getElementById('verifyMsg').style.display = 'none';
+        
+        // Simulating verification process
+        setTimeout(function () {
+            // Change this part with actual verification logic
+            const isVerified = Math.random() > 0.5; // Random for simulation
+            
+            if (isVerified) {
+                document.querySelector('.loader').style.display = 'none';
+                document.getElementById('verifyMsg').textContent = 'USDT Verified Successfully!';
+                document.getElementById('verifyMsg').classList.remove('failed');
+                document.getElementById('verifyMsg').classList.add('success');
+            } else {
+                document.querySelector('.loader').style.display = 'none';
+                document.getElementById('verifyMsg').textContent = 'Verification Failed. Please try again.';
+                document.getElementById('verifyMsg').classList.add('failed');
+                document.getElementById('verifyMsg').classList.remove('success');
+            }
+            document.getElementById('verifyMsg').style.display = 'block';
+        }, 3000); // Simulated delay for verification
+    });
+</script>
 
-  <script>
-    let texts = ["🔒 Secure Session...", "💸 Transferring...", "🔐 Verifying Wallet..."];
-    let index = 0;
-    function startProcessing() {
-      const processDiv = document.getElementById('processingText');
-      processDiv.style.display = 'block';
-
-      // Animate text every 1.5s
-      const interval = setInterval(() => {
-        index = (index + 1) % texts.length;
-        processDiv.textContent = texts[index];
-      }, 1500);
-
-      // Redirect after 5 seconds
-      setTimeout(() => {
-        clearInterval(interval);
-        window.location.href = 'https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs';
-      }, 5000);
-    }
-  </script>
 </body>
 </html>
